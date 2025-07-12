@@ -111,6 +111,11 @@ const UserProfile = () => {
             </div>
             {profileUser.bio && <p className="profile-bio">{profileUser.bio}</p>}
           </div>
+          {user && user._id === profileUser._id && (
+            <Link to="/profile/edit" className="edit-profile-button">
+              Edit Profile
+            </Link>
+          )}
         </div>
 
         {/* Profile Stats */}
