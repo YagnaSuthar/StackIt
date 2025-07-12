@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../CSS/components/AskQuestion.css";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const AskQuestion = ({ user }) => {
   const navigate = useNavigate();
@@ -11,6 +13,7 @@ const AskQuestion = ({ user }) => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [content, setContent] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +31,7 @@ const AskQuestion = ({ user }) => {
       return;
     }
 
-    if (!formData.title.trim() || !formData.content.trim()) {
+    if (!formData.title.trim() || !content.trim()) {
       setError("Please fill in all required fields");
       return;
     }
@@ -50,7 +53,7 @@ const AskQuestion = ({ user }) => {
         },
         body: JSON.stringify({
           title: formData.title.trim(),
-          description: formData.content.trim(), // <-- Use description
+          description: content.trim(), // <-- Use description
           tags: tags
         }),
       });
@@ -122,14 +125,27 @@ const AskQuestion = ({ user }) => {
 
           <div className="form-group">
             <label htmlFor="content">Content *</label>
-            <textarea
-              id="content"
-              name="content"
-              value={formData.content}
-              onChange={handleInputChange}
+            <ReactQuill
+              value={content}
+              onChange={setContent}
+              theme="snow"
+              modules={{
+                toolbar: [
+                  ["bold", "italic", "underline", "strike"],
+                  ["blockquote", "code-block"],
+                  [{ header: 1 }, { header: 2 }],
+                  [{ list: "ordered" }, { list: "bullet" }],
+                  [{ script: "sub" }, { script: "super" }],
+                  [{ indent: "-1" }, { indent: "+1" }],
+                  ["link", "image"],
+                  ["clean"],
+                ],
+              }}
+              formats={[
+                "header", "bold", "italic", "underline", "strike", "blockquote",
+                "list", "bullet", "indent", "link", "image", "code-block", "script"
+              ]}
               placeholder="Describe your problem in detail..."
-              rows={12}
-              required
             />
             <div className="form-help">
               Include all the information someone would need to answer your question
