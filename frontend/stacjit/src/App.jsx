@@ -1,14 +1,13 @@
 
 import React, { useState } from 'react'
+import Navbar from './Components/Navbar.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-    <p>
-      hello.
-    </p>
+      <Navbar />
     </>
   )
 }

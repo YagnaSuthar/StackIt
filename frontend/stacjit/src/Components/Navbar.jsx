@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Search, ChevronDown } from 'lucide-react';
-import '../../CSS/components/Navbar.css';
+import '../CSS/components/Navbar.css';
 
 const Navbar = ({ loggedIn = false }) => {
   const [showMoreDropdown, setShowMoreDropdown] = useState(false);
