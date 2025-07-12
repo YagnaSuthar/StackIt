@@ -7,6 +7,7 @@ const {
   deleteQuestion,
   voteQuestion
 } = require('../controllers/questionController');
+const { createAnswer } = require('../controllers/answerController');
 const { protect } = require('../middlewares/authMiddleware');
 
 const router = express.Router();
@@ -21,5 +22,8 @@ router.route('/:id')
   .delete(protect, deleteQuestion);
 
 router.post('/:id/vote', protect, voteQuestion);
+
+// Create answer for a question
+router.post('/:questionId/answers', protect, createAnswer);
 
 module.exports = router;

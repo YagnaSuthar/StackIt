@@ -8,6 +8,14 @@ const { Server } = require('socket.io');
 const path = require('path');
 require('dotenv').config();
 
+// Set default environment variables for development
+if (!process.env.JWT_SECRET) {
+  process.env.JWT_SECRET = 'dev-secret-key-change-in-production';
+}
+if (!process.env.JWT_EXPIRE) {
+  process.env.JWT_EXPIRE = '30d';
+}
+
 const errorHandler = require('./middlewares/errorHandler');
 // const { handleConnection } = require('./utils/socketHandler');
 
@@ -50,7 +58,8 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Database connection
-mongoose.connect(process.env.MONGODB_URI, {
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/stackit';
+mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -88,7 +97,7 @@ try {
 console.log('Loading answer routes...');
 try {
   const answerRoutes = require('./routes/answerRoutes');
-  app.use('/api', answerRoutes);
+  app.use('/api/answers', answerRoutes);
   console.log('Answer routes loaded successfully');
 } catch (error) {
   console.error('Error loading answer routes:', error.message);
