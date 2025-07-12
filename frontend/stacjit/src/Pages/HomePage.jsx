@@ -51,6 +51,22 @@ const HomePage = ({ user }) => {
     return 0;
   };
 
+  // Helper to get upvote count
+  const getUpvoteCount = (item) => {
+    if (item.votes && typeof item.votes === 'object' && item.votes.upvotes) {
+      return item.votes.upvotes.length;
+    }
+    return 0;
+  };
+
+  // Helper to get downvote count
+  const getDownvoteCount = (item) => {
+    if (item.votes && typeof item.votes === 'object' && item.votes.downvotes) {
+      return item.votes.downvotes.length;
+    }
+    return 0;
+  };
+
   const truncateText = (text, maxLength = 150) => {
     if (!text) return "";
     if (text.length <= maxLength) return text;
@@ -117,8 +133,12 @@ const HomePage = ({ user }) => {
                 <div key={question._id || question.id} className="question-card">
                   <div className="question-stats">
                     <div className="stat">
-                      <span className="stat-number">{getVoteScore(question)}</span>
-                      <span className="stat-label">votes</span>
+                      <span className="stat-number">{getUpvoteCount(question)}</span>
+                      <span className="stat-label">Upvotes</span>
+                    </div>
+                    <div className="stat">
+                      <span className="stat-number">{getDownvoteCount(question)}</span>
+                      <span className="stat-label">Downvotes</span>
                     </div>
                     <div className="stat">
                       <span className="stat-number">{question.answers?.length || 0}</span>

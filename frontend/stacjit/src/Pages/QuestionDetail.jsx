@@ -110,6 +110,22 @@ const QuestionDetail = ({ user }) => {
     return 0;
   };
 
+  // Helper to get upvote count
+  const getUpvoteCount = (item) => {
+    if (item.votes && typeof item.votes === 'object' && item.votes.upvotes) {
+      return item.votes.upvotes.length;
+    }
+    return 0;
+  };
+
+  // Helper to get downvote count
+  const getDownvoteCount = (item) => {
+    if (item.votes && typeof item.votes === 'object' && item.votes.downvotes) {
+      return item.votes.downvotes.length;
+    }
+    return 0;
+  };
+
   // Support both 'content' and 'description' fields for question text
   const getQuestionText = (q) => q.content || q.description || "";
 
@@ -162,19 +178,28 @@ const QuestionDetail = ({ user }) => {
         {/* Question Content */}
         <div className="question-content">
           <div className="vote-section">
-            <button
-              className="vote-button upvote"
-              onClick={() => handleVote("up", question._id, "questions")}
-            >
-              ▲
-            </button>
-            <span className="vote-count">{getVoteScore(question)}</span>
-            <button
-              className="vote-button downvote"
-              onClick={() => handleVote("down", question._id, "questions")}
-            >
-              ▼
-            </button>
+            <div className="vote-group">
+              <button
+                className="vote-button upvote"
+                onClick={() => handleVote("up", question._id, "questions")}
+              >
+                ▲
+              </button>
+              <span className="vote-count upvotes">{getUpvoteCount(question)}</span>
+            </div>
+            <div className="vote-group">
+              <button
+                className="vote-button downvote"
+                onClick={() => handleVote("down", question._id, "questions")}
+              >
+                ▼
+              </button>
+              <span className="vote-count downvotes">{getDownvoteCount(question)}</span>
+            </div>
+            <div className="vote-summary">
+              <span className="net-votes">{getVoteScore(question)}</span>
+              <span className="vote-label">net votes</span>
+            </div>
           </div>
           <div className="content-section">
             <div className="question-text">{getQuestionText(question)}</div>
@@ -197,19 +222,28 @@ const QuestionDetail = ({ user }) => {
           {answers.map((answer) => (
             <div key={answer._id} className="answer-item">
               <div className="vote-section">
-                <button
-                  className="vote-button upvote"
-                  onClick={() => handleVote("up", answer._id, "answers")}
-                >
-                  ▲
-                </button>
-                <span className="vote-count">{getVoteScore(answer)}</span>
-                <button
-                  className="vote-button downvote"
-                  onClick={() => handleVote("down", answer._id, "answers")}
-                >
-                  ▼
-                </button>
+                <div className="vote-group">
+                  <button
+                    className="vote-button upvote"
+                    onClick={() => handleVote("up", answer._id, "answers")}
+                  >
+                    ▲
+                  </button>
+                  <span className="vote-count upvotes">{getUpvoteCount(answer)}</span>
+                </div>
+                <div className="vote-group">
+                  <button
+                    className="vote-button downvote"
+                    onClick={() => handleVote("down", answer._id, "answers")}
+                  >
+                    ▼
+                  </button>
+                  <span className="vote-count downvotes">{getDownvoteCount(answer)}</span>
+                </div>
+                <div className="vote-summary">
+                  <span className="net-votes">{getVoteScore(answer)}</span>
+                  <span className="vote-label">net votes</span>
+                </div>
               </div>
               <div className="content-section">
                 <div className="answer-text">

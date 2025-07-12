@@ -172,6 +172,18 @@ const voteAnswer = async (req, res) => {
     
     await answer.save();
     
+    // Create notification for answer author if someone else voted
+    if (answer.author.toString() !== userId) {
+      await Notification.create({
+        recipient: answer.author,
+        sender: userId,
+        type: 'vote',
+        message: `${req.user.username} ${type === 'upvote' ? 'upvoted' : 'downvoted'} your answer`,
+        relatedQuestion: answer.question,
+        relatedAnswer: answer._id
+      });
+    }
+    
     res.json({
       success: true,
       voteScore: answer.votes.upvotes.length - answer.votes.downvotes.length

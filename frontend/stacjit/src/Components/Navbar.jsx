@@ -12,7 +12,7 @@ const Navbar = ({ user, notifications, onLogout }) => {
   const [hasUnread, setHasUnread] = useState(false);
 
   useEffect(() => {
-    if (notifications && notifications.some((n) => !n.read)) {
+    if (notifications && notifications.some((n) => !n.isRead)) {
       setHasUnread(true);
     } else {
       setHasUnread(false);
@@ -52,7 +52,7 @@ const Navbar = ({ user, notifications, onLogout }) => {
                 <BellIcon hasUnread={hasUnread} />
                 {hasUnread && (
                   <span className="notification-badge">
-                    {notifications.filter((n) => !n.read).length}
+                    {notifications.filter((n) => !n.isRead).length}
                   </span>
                 )}
               </Link>

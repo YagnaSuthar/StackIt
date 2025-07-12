@@ -39,7 +39,7 @@ const Notifications = ({ user }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(`http://localhost:5000/api/notifications/${notificationId}/read`, {
-        method: "POST",
+        method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -49,7 +49,7 @@ const Notifications = ({ user }) => {
         setNotifications(prev => 
           prev.map(notif => 
             notif._id === notificationId 
-              ? { ...notif, read: true }
+              ? { ...notif, isRead: true }
               : notif
           )
         );
@@ -62,15 +62,15 @@ const Notifications = ({ user }) => {
   const markAllAsRead = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/notifications/mark-all-read", {
-        method: "POST",
+      const response = await fetch("http://localhost:5000/api/notifications/read-all", {
+        method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       if (response.ok) {
-        setNotifications(prev => prev.map(notif => ({ ...notif, read: true })));
+        setNotifications(prev => prev.map(notif => ({ ...notif, isRead: true })));
       }
     } catch (error) {
       console.error("Failed to mark all as read:", error);
@@ -122,11 +122,11 @@ const Notifications = ({ user }) => {
   };
 
   const getNotificationLink = (notification) => {
-    if (notification.questionId) {
-      return `/questions/${notification.questionId}`;
+    if (notification.relatedQuestion) {
+      return `/questions/${notification.relatedQuestion}`;
     }
-    if (notification.userId) {
-      return `/profile/${notification.userId}`;
+    if (notification.sender && notification.sender.username) {
+      return `/profile/${notification.sender.username}`;
     }
     return "#";
   };
@@ -167,7 +167,7 @@ const Notifications = ({ user }) => {
     );
   }
 
-  const unreadCount = notifications.filter(n => !n.read).length;
+  const unreadCount = notifications.filter(n => !n.isRead).length;
 
   return (
     <div className="notifications-page">
@@ -192,7 +192,7 @@ const Notifications = ({ user }) => {
             {notifications.map((notification) => (
               <div
                 key={notification._id}
-                className={`notification-item ${!notification.read ? "unread" : ""}`}
+                className={`notification-item ${!notification.isRead ? "unread" : ""}`}
               >
                 <div className="notification-icon">
                   {getNotificationIcon(notification.type)}
@@ -201,7 +201,7 @@ const Notifications = ({ user }) => {
                   <Link 
                     to={getNotificationLink(notification)}
                     className="notification-text"
-                    onClick={() => !notification.read && markAsRead(notification._id)}
+                    onClick={() => !notification.isRead && markAsRead(notification._id)}
                   >
                     {notification.message}
                   </Link>
@@ -209,7 +209,7 @@ const Notifications = ({ user }) => {
                     <span className="notification-time">
                       {formatDate(notification.createdAt)}
                     </span>
-                    {!notification.read && (
+                    {!notification.isRead && (
                       <button
                         onClick={() => markAsRead(notification._id)}
                         className="mark-read-button"

@@ -83,6 +83,22 @@ const QuestionsList = ({ user }) => {
     return 0;
   };
 
+  // Helper to get upvote count
+  const getUpvoteCount = (item) => {
+    if (item.votes && typeof item.votes === 'object' && item.votes.upvotes) {
+      return item.votes.upvotes.length;
+    }
+    return 0;
+  };
+
+  // Helper to get downvote count
+  const getDownvoteCount = (item) => {
+    if (item.votes && typeof item.votes === 'object' && item.votes.downvotes) {
+      return item.votes.downvotes.length;
+    }
+    return 0;
+  };
+
   // Support both 'content' and 'description' fields for question text
   const getQuestionText = (q) => q.content || q.description || "";
 
@@ -182,8 +198,12 @@ const QuestionsList = ({ user }) => {
               <div key={question._id} className="question-card">
                 <div className="question-stats">
                   <div className="stat">
-                    <span className="stat-number">{getVoteScore(question)}</span>
-                    <span className="stat-label">votes</span>
+                    <span className="stat-number">{getUpvoteCount(question)}</span>
+                    <span className="stat-label">Upvotes</span>
+                  </div>
+                  <div className="stat">
+                    <span className="stat-number">{getDownvoteCount(question)}</span>
+                    <span className="stat-label">Downvotes</span>
                   </div>
                   <div className="stat">
                     <span className="stat-number">{question.answers?.length || 0}</span>

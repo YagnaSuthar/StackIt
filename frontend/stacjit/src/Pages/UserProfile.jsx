@@ -71,6 +71,22 @@ const UserProfile = ({ user }) => {
     return 0;
   };
 
+  // Helper to get upvote count
+  const getUpvoteCount = (item) => {
+    if (item.votes && typeof item.votes === 'object' && item.votes.upvotes) {
+      return item.votes.upvotes.length;
+    }
+    return 0;
+  };
+
+  // Helper to get downvote count
+  const getDownvoteCount = (item) => {
+    if (item.votes && typeof item.votes === 'object' && item.votes.downvotes) {
+      return item.votes.downvotes.length;
+    }
+    return 0;
+  };
+
   if (loading) {
     return (
       <div className="user-profile">
@@ -185,8 +201,12 @@ const UserProfile = ({ user }) => {
                       <div key={question._id} className="question-item">
                         <div className="question-stats">
                           <div className="stat">
-                            <span className="stat-number">{getVoteScore(question)}</span>
-                            <span className="stat-label">votes</span>
+                            <span className="stat-number">{getUpvoteCount(question)}</span>
+                            <span className="stat-label">Upvotes</span>
+                          </div>
+                          <div className="stat">
+                            <span className="stat-number">{getDownvoteCount(question)}</span>
+                            <span className="stat-label">Downvotes</span>
                           </div>
                           <div className="stat">
                             <span className="stat-number">{question.answers?.length || 0}</span>
@@ -233,8 +253,12 @@ const UserProfile = ({ user }) => {
                       <div key={answer._id} className="answer-item">
                         <div className="answer-stats">
                           <div className="stat">
-                            <span className="stat-number">{getVoteScore(answer)}</span>
-                            <span className="stat-label">votes</span>
+                            <span className="stat-number">{getUpvoteCount(answer)}</span>
+                            <span className="stat-label">Upvotes</span>
+                          </div>
+                          <div className="stat">
+                            <span className="stat-number">{getDownvoteCount(answer)}</span>
+                            <span className="stat-label">Downvotes</span>
                           </div>
                         </div>
                         <div className="answer-content">
