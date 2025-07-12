@@ -90,6 +90,7 @@ const UserProfile = ({ user }) => {
     );
   }
 
+<<<<<<< HEAD
   // Debugging: log the user and profileUser objects
   console.log('profileUser:', profileUser);
   console.log('user:', user);
@@ -98,6 +99,8 @@ const UserProfile = ({ user }) => {
   const profileUserId = profileUser._id || profileUser.id;
   const loggedInUserId = user?._id || user?.id;
 
+=======
+>>>>>>> e8819b250816261753ea86383cbcd8be1ef425ea
   return (
     <div className="user-profile">
       <div className="container">
@@ -118,7 +121,11 @@ const UserProfile = ({ user }) => {
               <p className="profile-bio">{profileUser.bio}</p>
             )}
           </div>
+<<<<<<< HEAD
           {loggedInUserId && profileUserId && loggedInUserId === profileUserId && (
+=======
+          {user && user._id === profileUser._id && (
+>>>>>>> e8819b250816261753ea86383cbcd8be1ef425ea
             <Link to="/profile/edit" className="edit-profile-button">
               Edit Profile
             </Link>

@@ -62,6 +62,9 @@ const Login = ({ setUser }) => {
     try {
       const response = await authAPI.login(formData);
       console.log('Login successful:', response);
+      
+      // Redirect to homepage after successful login
+      navigate('/');
       setUser(response.user); // <-- Add this line!
       localStorage.setItem('token', response.token); // Save token for future requests
       navigate('/');
