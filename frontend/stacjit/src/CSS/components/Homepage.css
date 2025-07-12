@@ -1,0 +1,114 @@
+/* src/CSS/pages/HomePage.css */
+:root {
+  --primary-color: #4e60ff;
+  --background-color: #f4f6fb;
+  --card-bg: #ffffff;
+  --text-dark: #1f1f1f;
+  --text-light: #5f6368;
+  --border-color: #e0e0e0;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.homepage {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Hero Section */
+.hero-section {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.hero-section h2 {
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.highlight {
+  color: var(--primary-color);
+}
+
+.hero-section p {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  margin-top: 0.5rem;
+}
+
+/* Feed Header */
+.question-feed h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+/* Question List */
+.question-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .question-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card */
+.question-card {
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.question-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-5px);
+}
+
+.question-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.75rem;
+}
+
+.question-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+/* Button */
+.view-btn {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background-color 0.3s ease;
+}
+
+.view-btn:hover {
+  background-color: #3a49cc;
+}
