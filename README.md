@@ -6,6 +6,9 @@ Suthar Yagna Kalpeshbhai       - yagna.suthar@gmail.com
 Kharadi Dhrumil Jagadishkumar  - dhumil05@gmail.com
 Kavya SatishKumar Joshi        - kavyajoshi4290@gmail.com
 
+# Video Link 
+https://drive.google.com/drive/folders/18X9ReP5zE4cJcicJ6Nbwlc0uLoPBOkk7
+
 # StackIt - Q&A Platform
 
 A full-stack question and answer platform built with Node.js, Express, MongoDB, and React. StackIt provides a community-driven platform where users can ask questions, provide answers, vote on content, and engage with other users through a modern web interface.
