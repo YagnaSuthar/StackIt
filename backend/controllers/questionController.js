@@ -82,7 +82,8 @@ const getQuestion = async (req, res) => {
     
     res.json({
       success: true,
-      question
+      question,
+      answers: question.answers || []
     });
   } catch (error) {
     res.status(500).json({

@@ -133,6 +133,7 @@ const UserProfile = () => {
                         <div className="question-stats">
                           <div className="stat">
                             <span className="stat-number">{getVoteScore(question)}</span>
+                            <span className="stat-number">{getVoteScore(question)}</span>
                             <span className="stat-label">votes</span>
                           </div>
                           <div className="stat">
@@ -170,6 +171,7 @@ const UserProfile = () => {
                       <div key={answer._id} className="answer-item">
                         <div className="answer-stats">
                           <div className="stat">
+                            <span className="stat-number">{getVoteScore(answer)}</span>
                             <span className="stat-number">{getVoteScore(answer)}</span>
                             <span className="stat-label">votes</span>
                           </div>

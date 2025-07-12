@@ -11,6 +11,9 @@ const { protect } = require('../middlewares/authMiddleware');
 
 const router = express.Router();
 
+// Get answers by author (public route)
+router.get('/', getAnswersByAuthor);
+
 // Update specific answer
 router.put('/:id', protect, updateAnswer);
 
