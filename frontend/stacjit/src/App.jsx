@@ -6,6 +6,8 @@ import Navbar from './Components/Navbar.jsx';
 import HomePage from './Pages/HomePage.jsx';
 import Login from './Pages/Login.jsx'; // 👈 import the Login page
 import Register from './Pages/Register.jsx';
+import './CSS/global.css'
+
 
 function App() {
   return (

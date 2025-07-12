@@ -130,39 +130,12 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
-<<<<<<< Updated upstream
       <div className="background-animation">
-=======
-       <div className="background-animation">
->>>>>>> Stashed changes
         <div className="floating-shapes">
           <div className="shape shape-1"></div>
           <div className="shape shape-2"></div>
           <div className="shape shape-3"></div>
           <div className="shape shape-4"></div>
-<<<<<<< Updated upstream
-=======
-        </div>
-      </div>
-      <div className="hero-section">
-        <h2>Welcome to <span className="highlight">StackIt</span></h2>
-        <p>Ask. Answer. Share. Empower the developer community.</p>
-      </div>
-
-      <div className="question-feed">
-        <h3>📌 Latest Questions</h3>
-        <div className="question-list">
-          {questions.map((q) => (
-            <div key={q.id} className="question-card">
-              <h4 className="question-title">{q.title}</h4>
-              <div className="question-meta">
-                <span>🧑 {q.user}</span>
-                <span>🕒 {q.time}</span>
-              </div>
-              <button className="view-btn">View Details</button>
-            </div>
-          ))}
->>>>>>> Stashed changes
         </div>
       </div>
 
