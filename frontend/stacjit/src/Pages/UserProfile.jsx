@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import "../CSS/components/UserProfile.css";
 
-const UserProfile = ({ user }) => {
+const UserProfile = () => {
   const { username } = useParams();
   const [profileUser, setProfileUser] = useState(null);
   const [userQuestions, setUserQuestions] = useState([]);
@@ -12,43 +12,39 @@ const UserProfile = ({ user }) => {
   const [activeTab, setActiveTab] = useState("questions");
 
   useEffect(() => {
-    fetchUserProfile();
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        // Fetch user profile
+        const userRes = await fetch(`http://localhost:5000/api/users/${username}`);
+        if (!userRes.ok) throw new Error("User not found");
+        const userData = await userRes.json();
+        setProfileUser(userData.user);
+
+        // Fetch user's questions
+        const questionsRes = await fetch(`http://localhost:5000/api/questions?author=${username}`);
+        const questionsData = questionsRes.ok ? await questionsRes.json() : { questions: [] };
+        setUserQuestions(questionsData.questions || []);
+
+        // Fetch user's answers
+        const answersRes = await fetch(`http://localhost:5000/api/answers/by-author/${username}`);
+        const answersData = answersRes.ok ? await answersRes.json() : { answers: [] };
+        setUserAnswers(answersData.answers || []);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
   }, [username]);
 
-  const fetchUserProfile = async () => {
-    try {
-      const response = await fetch(`http://localhost:5000/api/users/${username}`);
-      if (!response.ok) {
-        throw new Error("User not found");
-      }
-      const data = await response.json();
-      setProfileUser(data.user);
-      
-      // Fetch user's questions and answers
-      const questionsResponse = await fetch(`http://localhost:5000/api/questions?author=${username}`);
-      const answersResponse = await fetch(`http://localhost:5000/api/answers?author=${username}`);
-      
-      if (questionsResponse.ok) {
-        const questionsData = await questionsResponse.json();
-        setUserQuestions(questionsData.questions || []);
-      }
-      
-      if (answersResponse.ok) {
-        const answersData = await answersResponse.json();
-        setUserAnswers(answersData.answers || []);
-      }
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const formatDate = (dateString) => {
+    if (!dateString) return "";
     const date = new Date(dateString);
     const now = new Date();
     const diffInHours = Math.floor((now - date) / (1000 * 60 * 60));
-    
     if (diffInHours < 1) return "Just now";
     if (diffInHours < 24) return `${diffInHours}h ago`;
     if (diffInHours < 168) return `${Math.floor(diffInHours / 24)}d ago`;
@@ -56,11 +52,11 @@ const UserProfile = ({ user }) => {
   };
 
   const truncateText = (text, maxLength = 100) => {
+    if (!text) return "";
     if (text.length <= maxLength) return text;
     return text.substring(0, maxLength) + "...";
   };
 
-  // Helper to get vote score safely
   const getVoteScore = (item) => {
     if (item.votes && typeof item.votes === 'object' && item.votes.upvotes && item.votes.downvotes) {
       return item.votes.upvotes.length - item.votes.downvotes.length;
@@ -88,42 +84,16 @@ const UserProfile = ({ user }) => {
   };
 
   if (loading) {
-    return (
-      <div className="user-profile">
-        <div className="container">
-          <div className="loading">Loading profile...</div>
-        </div>
-      </div>
-    );
+    return <div className="user-profile"><div className="container"><div className="loading">Loading profile...</div></div></div>;
   }
 
   if (error) {
-    return (
-      <div className="user-profile">
-        <div className="container">
-          <div className="error">Error: {error}</div>
-        </div>
-      </div>
-    );
+    return <div className="user-profile"><div className="container"><div className="error">Error: {error}</div></div></div>;
   }
 
   if (!profileUser) {
-    return (
-      <div className="user-profile">
-        <div className="container">
-          <div className="error">User not found</div>
-        </div>
-      </div>
-    );
+    return <div className="user-profile"><div className="container"><div className="error">User not found</div></div></div>;
   }
-
-  // Debugging: log the user and profileUser objects
-  console.log('profileUser:', profileUser);
-  console.log('user:', user);
-
-  // Use _id or id for comparison
-  const profileUserId = profileUser._id || profileUser.id;
-  const loggedInUserId = user?._id || user?.id;
 
   return (
     <div className="user-profile">
@@ -137,19 +107,10 @@ const UserProfile = ({ user }) => {
             <h1 className="profile-name">{profileUser.username}</h1>
             <div className="profile-meta">
               <span className="profile-role">{profileUser.role}</span>
-              <span className="profile-joined">
-                Joined {formatDate(profileUser.createdAt)}
-              </span>
+              <span className="profile-joined">Joined {formatDate(profileUser.createdAt)}</span>
             </div>
-            {profileUser.bio && (
-              <p className="profile-bio">{profileUser.bio}</p>
-            )}
+            {profileUser.bio && <p className="profile-bio">{profileUser.bio}</p>}
           </div>
-          {loggedInUserId && profileUserId && loggedInUserId === profileUserId && (
-            <Link to="/profile/edit" className="edit-profile-button">
-              Edit Profile
-            </Link>
-          )}
         </div>
 
         {/* Profile Stats */}
@@ -171,29 +132,15 @@ const UserProfile = ({ user }) => {
         {/* Content Tabs */}
         <div className="profile-content">
           <div className="tab-navigation">
-            <button
-              className={`tab-button ${activeTab === "questions" ? "active" : ""}`}
-              onClick={() => setActiveTab("questions")}
-            >
-              Questions ({userQuestions.length})
-            </button>
-            <button
-              className={`tab-button ${activeTab === "answers" ? "active" : ""}`}
-              onClick={() => setActiveTab("answers")}
-            >
-              Answers ({userAnswers.length})
-            </button>
+            <button className={`tab-button ${activeTab === "questions" ? "active" : ""}`} onClick={() => setActiveTab("questions")}>Questions ({userQuestions.length})</button>
+            <button className={`tab-button ${activeTab === "answers" ? "active" : ""}`} onClick={() => setActiveTab("answers")}>Answers ({userAnswers.length})</button>
           </div>
-
           <div className="tab-content">
             {activeTab === "questions" && (
               <div className="questions-tab">
                 {userQuestions.length === 0 ? (
                   <div className="empty-state">
                     <p>No questions yet.</p>
-                    <Link to="/ask" className="cta-button">
-                      Ask Your First Question
-                    </Link>
                   </div>
                 ) : (
                   <div className="questions-list">
@@ -214,23 +161,15 @@ const UserProfile = ({ user }) => {
                           </div>
                         </div>
                         <div className="question-content">
-                          <Link to={`/questions/${question._id}`} className="question-title">
-                            {question.title}
-                          </Link>
-                          <p className="question-excerpt">
-                            {truncateText(question.content || question.description || "")}
-                          </p>
+                          <Link to={`/questions/${question._id}`} className="question-title">{question.title}</Link>
+                          <p className="question-excerpt">{truncateText(question.content)}</p>
                           <div className="question-meta">
                             <div className="tags">
                               {question.tags?.slice(0, 3).map((tag, index) => (
-                                <span key={index} className="tag">
-                                  {tag}
-                                </span>
+                                <span key={index} className="tag">{tag}</span>
                               ))}
                             </div>
-                            <span className="question-date">
-                              {formatDate(question.createdAt)}
-                            </span>
+                            <span className="question-date">{formatDate(question.createdAt)}</span>
                           </div>
                         </div>
                       </div>
@@ -239,13 +178,11 @@ const UserProfile = ({ user }) => {
                 )}
               </div>
             )}
-
             {activeTab === "answers" && (
               <div className="answers-tab">
                 {userAnswers.length === 0 ? (
                   <div className="empty-state">
                     <p>No answers yet.</p>
-                    <p>Start answering questions to build your reputation!</p>
                   </div>
                 ) : (
                   <div className="answers-list">
@@ -262,16 +199,10 @@ const UserProfile = ({ user }) => {
                           </div>
                         </div>
                         <div className="answer-content">
-                          <Link to={`/questions/${answer.question}`} className="answer-question">
-                            {answer.questionTitle || "Question"}
-                          </Link>
-                          <p className="answer-excerpt">
-                            {truncateText(answer.content || answer.description || answer.text || "No content available")}
-                          </p>
+                          <Link to={`/questions/${answer.question?._id || answer.question}`} className="answer-question">{answer.questionTitle || "Question"}</Link>
+                          <p className="answer-excerpt">{truncateText(answer.content)}</p>
                           <div className="answer-meta">
-                            <span className="answer-date">
-                              {formatDate(answer.createdAt)}
-                            </span>
+                            <span className="answer-date">{formatDate(answer.createdAt)}</span>
                           </div>
                         </div>
                       </div>

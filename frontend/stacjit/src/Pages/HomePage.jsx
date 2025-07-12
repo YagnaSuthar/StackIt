@@ -165,9 +165,13 @@ const HomePage = ({ user }) => {
                         ))}
                       </div>
                       <div className="question-author">
-                        <span className="author-name">
-                          {question.author?.username || "Anonymous"}
-                        </span>
+                        {question.author?.username ? (
+                          <Link to={`/profile/${question.author.username}`} className="author-name">
+                            {question.author.username}
+                          </Link>
+                        ) : (
+                          <span className="author-name">Anonymous</span>
+                        )}
                         <span className="question-date">
                           {formatDate(question.createdAt)}
                         </span>

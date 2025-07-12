@@ -67,7 +67,8 @@ const QuestionsList = ({ user }) => {
     return date.toLocaleDateString();
   };
 
-  const truncateText = (text, maxLength = 150) => {
+  const truncateText = (text, maxLength = 100) => {
+    if (!text) return "";
     if (text.length <= maxLength) return text;
     return text.substring(0, maxLength) + "...";
   };
@@ -230,9 +231,13 @@ const QuestionsList = ({ user }) => {
                       ))}
                     </div>
                     <div className="question-author">
-                      <span className="author-name">
-                        {question.author?.username || "Anonymous"}
-                      </span>
+                      {question.author?.username ? (
+                        <Link to={`/profile/${question.author.username}`} className="author-name">
+                          {question.author.username}
+                        </Link>
+                      ) : (
+                        <span className="author-name">Anonymous</span>
+                      )}
                       <span className="question-date">
                         {formatDate(question.createdAt)}
                       </span>

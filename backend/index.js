@@ -116,7 +116,7 @@ try {
 console.log('Loading answer routes...');
 try {
   const answerRoutes = require('./routes/answerRoutes');
-  app.use('/api', answerRoutes);
+  app.use('/api/answers', answerRoutes);
   console.log('Answer routes loaded successfully');
 } catch (error) {
   console.error('Error loading answer routes:', error.message);

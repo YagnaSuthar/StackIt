@@ -4,7 +4,8 @@ const {
   deleteAnswer,
   voteAnswer,
   acceptAnswer,
-  getAnswersByAuthor
+  getAnswersByAuthor,
+  getAnswersByAuthorUsername
 } = require('../controllers/answerController');
 const { protect } = require('../middlewares/authMiddleware');
 
@@ -24,5 +25,11 @@ router.post('/:id/vote', protect, voteAnswer);
 
 // Accept specific answer
 router.post('/:id/accept', protect, acceptAnswer);
+
+// Get answers by author
+router.get('/', getAnswersByAuthor);
+
+// Get answers by author username (explicit route)
+router.get('/by-author/:username', getAnswersByAuthorUsername);
 
 module.exports = router;

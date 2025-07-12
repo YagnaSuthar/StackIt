@@ -259,54 +259,46 @@ const acceptAnswer = async (req, res) => {
   }
 };
 
-// @desc    Get answers by author
-// @route   GET /api/answers?author=username
-// @access  Public
 const getAnswersByAuthor = async (req, res) => {
+  const { author } = req.query;
+  if (!author) {
+    return res.status(400).json({ success: false, message: "Author username is required" });
+  }
   try {
-    const { author } = req.query;
-    
-    if (!author) {
-      return res.status(400).json({
-        success: false,
-        message: 'Author parameter is required'
-      });
-    }
-    
-    // Find user by username
     const user = await User.findOne({ username: author });
-    
     if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: 'User not found'
-      });
+      return res.status(404).json({ success: false, message: "User not found" });
     }
-    
-    // Get answers by author with populated question info
-    const answers = await Answer.find({ author: user._id })
-      .populate('author', 'username avatar bio reputation')
-      .populate({
-        path: 'question',
-        select: 'title _id'
-      })
-      .sort({ createdAt: -1 });
-    
-    // Transform answers to include question title
-    const transformedAnswers = answers.map(answer => ({
-      ...answer.toObject(),
-      questionTitle: answer.question?.title || 'Question'
+    const answers = await Answer.find({ author: user._id }).populate('question');
+    // Optionally, add question title for each answer
+    const answersWithTitles = answers.map(ans => ({
+      ...ans.toObject(),
+      questionTitle: ans.question?.title || "Question",
     }));
-    
-    res.json({
-      success: true,
-      answers: transformedAnswers
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
+    res.json({ success: true, answers: answersWithTitles });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+const getAnswersByAuthorUsername = async (req, res) => {
+  const { username } = req.params;
+  if (!username) {
+    return res.status(400).json({ success: false, message: "Username is required" });
+  }
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+    const answers = await Answer.find({ author: user._id }).populate('question');
+    const answersWithTitles = answers.map(ans => ({
+      ...ans.toObject(),
+      questionTitle: ans.question?.title || "Question",
+    }));
+    res.json({ success: true, answers: answersWithTitles });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 
@@ -316,5 +308,6 @@ module.exports = {
   deleteAnswer,
   voteAnswer,
   acceptAnswer,
-  getAnswersByAuthor
+  getAnswersByAuthor,
+  getAnswersByAuthorUsername
 };
