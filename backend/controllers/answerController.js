@@ -247,10 +247,62 @@ const acceptAnswer = async (req, res) => {
   }
 };
 
+// @desc    Get answers by author
+// @route   GET /api/answers?author=username
+// @access  Public
+const getAnswersByAuthor = async (req, res) => {
+  try {
+    const { author } = req.query;
+    
+    if (!author) {
+      return res.status(400).json({
+        success: false,
+        message: 'Author parameter is required'
+      });
+    }
+    
+    // Find user by username
+    const user = await User.findOne({ username: author });
+    
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+    
+    // Get answers by author with populated question info
+    const answers = await Answer.find({ author: user._id })
+      .populate('author', 'username avatar bio reputation')
+      .populate({
+        path: 'question',
+        select: 'title _id'
+      })
+      .sort({ createdAt: -1 });
+    
+    // Transform answers to include question title
+    const transformedAnswers = answers.map(answer => ({
+      ...answer.toObject(),
+      questionTitle: answer.question?.title || 'Question'
+    }));
+    
+    res.json({
+      success: true,
+      answers: transformedAnswers
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+};
+
 module.exports = {
   createAnswer,
   updateAnswer,
   deleteAnswer,
   voteAnswer,
-  acceptAnswer
+  acceptAnswer,
+  getAnswersByAuthor
 };

@@ -22,6 +22,8 @@ const QuestionDetail = ({ user }) => {
         throw new Error("Failed to fetch question");
       }
       const data = await response.json();
+      console.log('Question data:', data);
+      console.log('Answers:', data.answers);
       setQuestion(data.question);
       setAnswers(data.answers || []);
     } catch (err) {
@@ -63,6 +65,7 @@ const QuestionDetail = ({ user }) => {
     }
 
     try {
+      console.log('Submitting answer:', newAnswer);
       const response = await fetch(`http://localhost:5000/api/questions/${id}/answers`, {
         method: "POST",
         headers: {
@@ -73,9 +76,12 @@ const QuestionDetail = ({ user }) => {
       });
 
       if (response.ok) {
+        console.log('Answer posted successfully');
         setNewAnswer("");
         setShowAnswerForm(false);
         fetchQuestionAndAnswers(); // Refresh data
+      } else {
+        console.error('Failed to post answer:', response.status);
       }
     } catch (error) {
       console.error("Failed to submit answer:", error);
@@ -206,7 +212,9 @@ const QuestionDetail = ({ user }) => {
                 </button>
               </div>
               <div className="content-section">
-                <div className="answer-text">{getQuestionText(answer)}</div>
+                <div className="answer-text">
+                  {answer.content || answer.description || answer.text || "No content available"}
+                </div>
                 <div className="answer-meta">
                   <span className="answer-author">
                     {answer.author?.username || "Anonymous"}
