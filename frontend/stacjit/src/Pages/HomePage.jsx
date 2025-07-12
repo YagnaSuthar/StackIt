@@ -130,7 +130,7 @@ const HomePage = ({ user }) => {
           ) : (
             <div className="questions-grid">
               {questions.slice(0, 6).map((question) => (
-                <div key={question._id || question.id} className="question-card">
+                <div key={question._id || question.id} className="question-card" >
                   <div className="question-stats">
                     <div className="stat">
                       <span className="stat-number">{getUpvoteCount(question)}</span>

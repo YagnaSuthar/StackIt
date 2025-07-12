@@ -182,7 +182,7 @@ const QuestionDetail = ({ user }) => {
         </div>
 
         {/* Question Content */}
-        <div className="question-content">
+        <div className="question-content-1">
           <div className="vote-section">
             <div className="vote-group">
               <button
