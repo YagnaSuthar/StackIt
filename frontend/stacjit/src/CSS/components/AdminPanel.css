@@ -1,7 +1,10 @@
+/* Import shared theme variables */
+/* @import '../theme.css'; */
+
 /* Admin Panel Styles */
 .admin-panel {
   min-height: 100vh;
-  background: #f8f9fa;
+  background: var(--bg-primary);
   padding: 40px 0;
 }
 
@@ -20,22 +23,22 @@
 .admin-header h1 {
   font-size: 32px;
   font-weight: 600;
-  color: #24292f;
+  color: var(--text-primary);
   margin-bottom: 10px;
 }
 
 .admin-header p {
   font-size: 16px;
-  color: #586069;
+  color: var(--text-secondary);
   margin: 0;
 }
 
 /* Access Denied */
 .access-denied {
   text-align: center;
-  background: white;
-  border: 1px solid #e1e4e8;
-  border-radius: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
   padding: 60px 40px;
   margin-top: 40px;
 }
@@ -43,22 +46,22 @@
 .access-denied h2 {
   font-size: 24px;
   font-weight: 600;
-  color: #dc3545;
+  color: var(--danger-color);
   margin-bottom: 15px;
 }
 
 .access-denied p {
   font-size: 16px;
-  color: #586069;
+  color: var(--text-secondary);
   margin-bottom: 30px;
 }
 
 .back-button {
-  background: #0d6efd;
+  background: var(--primary-color);
   color: white;
   border: none;
   padding: 12px 24px;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   font-weight: 600;
   font-size: 16px;
   text-decoration: none;
@@ -66,7 +69,7 @@
 }
 
 .back-button:hover {
-  background: #0a58ca;
+  background: var(--primary-hover);
   transform: translateY(-1px);
 }
 
@@ -75,9 +78,9 @@
   display: flex;
   gap: 10px;
   margin-bottom: 30px;
-  background: white;
-  border: 1px solid #e1e4e8;
-  border-radius: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
   padding: 10px;
 }
 
@@ -87,29 +90,29 @@
   padding: 12px 20px;
   font-size: 16px;
   font-weight: 500;
-  color: #586069;
+  color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.2s ease;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   flex: 1;
 }
 
 .tab-button:hover {
-  color: #0d6efd;
-  background: #f6f8fa;
+  color: var(--primary-color);
+  background: var(--bg-secondary);
 }
 
 .tab-button.active {
-  color: #0d6efd;
-  background: #e7f3ff;
+  color: var(--primary-color);
+  background: var(--bg-primary);
   font-weight: 600;
 }
 
 /* Dashboard Tab */
 .dashboard-tab {
-  background: white;
-  border: 1px solid #e1e4e8;
-  border-radius: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
   padding: 30px;
 }
 
@@ -125,9 +128,9 @@
   align-items: center;
   gap: 20px;
   padding: 24px;
-  background: #f8f9fa;
-  border-radius: 8px;
-  border: 1px solid #e1e4e8;
+  background: var(--bg-primary);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
 }
 
 .stat-icon {
@@ -137,7 +140,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #0d6efd;
+  background: var(--primary-color);
   color: white;
   border-radius: 50%;
 }
@@ -145,28 +148,28 @@
 .stat-content h3 {
   font-size: 16px;
   font-weight: 600;
-  color: #586069;
+  color: var(--text-secondary);
   margin: 0 0 8px 0;
 }
 
 .stat-number {
   font-size: 28px;
   font-weight: 700;
-  color: #24292f;
+  color: var(--text-primary);
   margin: 0;
 }
 
 /* Recent Activity */
 .recent-activity {
-  background: #f8f9fa;
-  border-radius: 8px;
+  background: var(--bg-primary);
+  border-radius: var(--radius);
   padding: 24px;
 }
 
 .recent-activity h2 {
   font-size: 20px;
   font-weight: 600;
-  color: #24292f;
+  color: var(--text-primary);
   margin-bottom: 20px;
 }
 
@@ -181,9 +184,9 @@
   align-items: center;
   gap: 12px;
   padding: 12px;
-  background: white;
-  border-radius: 6px;
-  border: 1px solid #e1e4e8;
+  background: var(--bg-card);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
 }
 
 .activity-icon {
@@ -193,33 +196,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #e7f3ff;
+  background: var(--primary-light);
   border-radius: 50%;
 }
 
 .activity-text {
   flex: 1;
   font-size: 14px;
-  color: #24292f;
+  color: var(--text-primary);
 }
 
 .activity-time {
   font-size: 12px;
-  color: #6a737d;
+  color: var(--text-muted);
 }
 
 /* Users Tab */
 .users-tab, .questions-tab {
-  background: white;
-  border: 1px solid #e1e4e8;
-  border-radius: 8px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
   padding: 30px;
 }
 
 .users-tab h2, .questions-tab h2 {
   font-size: 24px;
   font-weight: 600;
-  color: #24292f;
+  color: var(--text-primary);
   margin-bottom: 20px;
 }
 
@@ -234,29 +237,29 @@ table {
 }
 
 thead {
-  background: #f6f8fa;
+  background: var(--bg-secondary);
 }
 
 th {
   text-align: left;
   padding: 12px 16px;
   font-weight: 600;
-  color: #24292f;
-  border-bottom: 1px solid #e1e4e8;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-color);
 }
 
 td {
   padding: 12px 16px;
-  border-bottom: 1px solid #e1e4e8;
+  border-bottom: 1px solid var(--border-color);
   vertical-align: top;
 }
 
 tbody tr:hover {
-  background: #f8f9fa;
+  background: var(--bg-secondary);
 }
 
 .user-link, .question-link {
-  color: #0d6efd;
+  color: var(--primary-color);
   text-decoration: none;
   font-weight: 500;
 }
@@ -267,20 +270,20 @@ tbody tr:hover {
 
 .role-badge {
   padding: 4px 8px;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
 }
 
 .role-badge.admin {
-  background: #dc3545;
+  background: var(--danger-color);
   color: white;
 }
 
 .role-badge.user {
-  background: #e1ecf4;
-  color: #39739d;
+  background: var(--bg-secondary);
+  color: var(--primary-color);
 }
 
 .action-buttons {
@@ -292,7 +295,7 @@ tbody tr:hover {
 .action-button {
   padding: 6px 12px;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
@@ -318,7 +321,7 @@ tbody tr:hover {
 }
 
 .action-button.delete {
-  background: #dc3545;
+  background: var(--danger-color);
   color: white;
 }
 
@@ -334,11 +337,11 @@ tbody tr:hover {
 }
 
 .loading {
-  color: #586069;
+  color: var(--text-secondary);
 }
 
 .error {
-  color: #dc3545;
+  color: var(--danger-color);
 }
 
 /* Responsive Design */
@@ -406,4 +409,4 @@ tbody tr:hover {
     height: 50px;
     font-size: 24px;
   }
-} 
+}
