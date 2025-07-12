@@ -60,6 +60,17 @@ const UserProfile = ({ user }) => {
     return text.substring(0, maxLength) + "...";
   };
 
+  // Helper to get vote score safely
+  const getVoteScore = (item) => {
+    if (item.votes && typeof item.votes === 'object' && item.votes.upvotes && item.votes.downvotes) {
+      return item.votes.upvotes.length - item.votes.downvotes.length;
+    }
+    if (typeof item.votes === 'number') {
+      return item.votes;
+    }
+    return 0;
+  };
+
   if (loading) {
     return (
       <div className="user-profile">
@@ -174,7 +185,7 @@ const UserProfile = ({ user }) => {
                       <div key={question._id} className="question-item">
                         <div className="question-stats">
                           <div className="stat">
-                            <span className="stat-number">{question.votes || 0}</span>
+                            <span className="stat-number">{getVoteScore(question)}</span>
                             <span className="stat-label">votes</span>
                           </div>
                           <div className="stat">
@@ -187,7 +198,7 @@ const UserProfile = ({ user }) => {
                             {question.title}
                           </Link>
                           <p className="question-excerpt">
-                            {truncateText(question.content)}
+                            {truncateText(question.content || question.description || "")}
                           </p>
                           <div className="question-meta">
                             <div className="tags">
@@ -222,7 +233,7 @@ const UserProfile = ({ user }) => {
                       <div key={answer._id} className="answer-item">
                         <div className="answer-stats">
                           <div className="stat">
-                            <span className="stat-number">{answer.votes || 0}</span>
+                            <span className="stat-number">{getVoteScore(answer)}</span>
                             <span className="stat-label">votes</span>
                           </div>
                         </div>
@@ -231,7 +242,7 @@ const UserProfile = ({ user }) => {
                             {answer.questionTitle || "Question"}
                           </Link>
                           <p className="answer-excerpt">
-                            {truncateText(answer.content)}
+                            {truncateText(answer.content || answer.description || answer.text || "No content available")}
                           </p>
                           <div className="answer-meta">
                             <span className="answer-date">

@@ -50,7 +50,7 @@ const AskQuestion = ({ user }) => {
         },
         body: JSON.stringify({
           title: formData.title.trim(),
-          content: formData.content.trim(),
+          description: formData.content.trim(), // <-- Use description
           tags: tags
         }),
       });

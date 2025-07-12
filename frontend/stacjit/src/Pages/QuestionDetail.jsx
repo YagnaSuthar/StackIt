@@ -46,7 +46,7 @@ const QuestionDetail = ({ user }) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ voteType: type }),
+        body: JSON.stringify({ type: type === "up" ? "upvote" : "downvote" }),
       });
 
       if (response.ok) {
