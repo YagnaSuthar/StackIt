@@ -25,7 +25,7 @@ const io = new Server(server, {
   cors: {
     origin: process.env.NODE_ENV === 'production' ? 
       'https://your-frontend-domain.com' : 
-      'http://localhost:3000',
+      'http://localhost:5174',
     credentials: true
   }
 });
@@ -44,9 +44,7 @@ app.use('/api/', limiter);
 
 // CORS
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' ? 
-    'https://your-frontend-domain.com' : 
-    'http://localhost:3000',
+  origin: true,
   credentials: true
 }));
 
@@ -131,6 +129,15 @@ try {
   console.log('Notification routes loaded successfully');
 } catch (error) {
   console.error('Error loading notification routes:', error.message);
+}
+
+console.log('Loading user routes...');
+try {
+  const userRoutes = require('./routes/userRoutes');
+  app.use('/api/users', userRoutes);
+  console.log('User routes loaded successfully');
+} catch (error) {
+  console.error('Error loading user routes:', error.message);
 }
 
 // Routes documentation endpoint

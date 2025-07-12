@@ -1,0 +1,390 @@
+/* User Profile Styles */
+.user-profile {
+  min-height: 100vh;
+  background: #f8f9fa;
+  padding: 40px 0;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Profile Header */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: white;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  background: #0d6efd;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 32px;
+  flex-shrink: 0;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-name {
+  font-size: 28px;
+  font-weight: 600;
+  color: #24292f;
+  margin: 0 0 10px 0;
+}
+
+.profile-meta {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.profile-role {
+  background: #e1ecf4;
+  color: #39739d;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.profile-joined {
+  color: #6a737d;
+  font-size: 14px;
+}
+
+.profile-bio {
+  color: #586069;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.edit-profile-button {
+  background: #0d6efd;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.edit-profile-button:hover {
+  background: #0a58ca;
+  transform: translateY(-1px);
+}
+
+/* Profile Stats */
+.profile-stats {
+  display: flex;
+  gap: 20px;
+  background: white;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+}
+
+.stat-number {
+  display: block;
+  font-size: 24px;
+  font-weight: 700;
+  color: #24292f;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #586069;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Profile Content */
+.profile-content {
+  background: white;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Tab Navigation */
+.tab-navigation {
+  display: flex;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 16px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #586069;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 3px solid transparent;
+}
+
+.tab-button:hover {
+  color: #0d6efd;
+  background: #f6f8fa;
+}
+
+.tab-button.active {
+  color: #0d6efd;
+  border-bottom-color: #0d6efd;
+  background: #f6f8fa;
+}
+
+/* Tab Content */
+.tab-content {
+  padding: 30px;
+}
+
+/* Questions List */
+.questions-list, .answers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.question-item, .answer-item {
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.question-item:hover, .answer-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.question-stats, .answer-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 60px;
+}
+
+.stat {
+  text-align: center;
+  padding: 8px 4px;
+  border-radius: 4px;
+  background: #f6f8fa;
+}
+
+.stat-number {
+  display: block;
+  font-weight: 600;
+  font-size: 16px;
+  color: #24292f;
+}
+
+.stat-label {
+  display: block;
+  font-size: 12px;
+  color: #586069;
+  text-transform: uppercase;
+}
+
+.question-content, .answer-content {
+  flex: 1;
+}
+
+.question-title, .answer-question {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0d6efd;
+  text-decoration: none;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.question-title:hover, .answer-question:hover {
+  color: #0a58ca;
+}
+
+.question-excerpt, .answer-excerpt {
+  color: #586069;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.question-meta, .answer-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: #e1ecf4;
+  color: #39739d;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.question-date, .answer-date {
+  font-size: 12px;
+  color: #6a737d;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #586069;
+}
+
+.empty-state p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.cta-button {
+  display: inline-block;
+  background: #0d6efd;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.cta-button:hover {
+  background: #0a58ca;
+  transform: translateY(-1px);
+}
+
+/* Loading and Error States */
+.loading, .error {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 18px;
+}
+
+.loading {
+  color: #586069;
+}
+
+.error {
+  color: #dc3545;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+  
+  .profile-meta {
+    justify-content: center;
+  }
+  
+  .profile-stats {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .tab-navigation {
+    flex-direction: column;
+  }
+  
+  .tab-button {
+    text-align: left;
+    border-bottom: 1px solid #e1e4e8;
+    border-right: 3px solid transparent;
+  }
+  
+  .tab-button.active {
+    border-right-color: #0d6efd;
+    border-bottom-color: #e1e4e8;
+  }
+  
+  .question-item, .answer-item {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .question-stats, .answer-stats {
+    flex-direction: row;
+    justify-content: center;
+    min-width: auto;
+  }
+  
+  .question-meta, .answer-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 15px;
+  }
+  
+  .profile-header {
+    padding: 20px;
+  }
+  
+  .profile-name {
+    font-size: 24px;
+  }
+  
+  .profile-avatar {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+  }
+  
+  .tab-content {
+    padding: 20px;
+  }
+  
+  .question-item, .answer-item {
+    padding: 15px;
+  }
+} 

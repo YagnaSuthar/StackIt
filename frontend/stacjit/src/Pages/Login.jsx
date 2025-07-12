@@ -1,8 +1,11 @@
 // src/Pages/Login.jsx
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { authAPI } from '../services/api';
 import '../CSS/components/Login.css';
 
-const Login = () => {
+const Login = ({ setUser }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ 
     email: '', 
     password: '' 
@@ -11,6 +14,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [loginError, setLoginError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,14 +57,17 @@ const Login = () => {
     }
 
     setIsLoading(true);
+    setLoginError('');
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      console.log('Logging in with:', formData);
-      // TODO: Add actual authentication logic here
+      const response = await authAPI.login(formData);
+      console.log('Login successful:', response);
+      setUser(response.user); // <-- Add this line!
+      localStorage.setItem('token', response.token); // Save token for future requests
+      navigate('/');
     } catch (error) {
       console.error('Login failed:', error);
+      setLoginError(error.message || 'Login failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -82,6 +89,13 @@ const Login = () => {
           <h2>Welcome Back</h2>
           <p>Sign in to your StackIt account</p>
         </div>
+
+        {loginError && (
+          <div className="error-alert">
+            <span className="error-icon">⚠️</span>
+            {loginError}
+          </div>
+        )}
 
         <div className="form-group">
           <label htmlFor="email">

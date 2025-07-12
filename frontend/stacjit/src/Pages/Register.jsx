@@ -1,10 +1,13 @@
 // src/Pages/Register.jsx
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { authAPI } from '../services/api';
 import '../CSS/components/Register.css';
 
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -14,6 +17,7 @@ const Register = () => {
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [registerError, setRegisterError] = useState('');
 
   // Calculate password strength
   useEffect(() => {
@@ -48,8 +52,8 @@ const Register = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (formData.name.trim().length < 2) {
-      newErrors.name = "Name must be at least 2 characters";
+    if (formData.username.trim().length < 3) {
+      newErrors.username = "Username must be at least 3 characters";
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -78,14 +82,19 @@ const Register = () => {
     }
 
     setIsLoading(true);
+    setRegisterError('');
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      console.log('Registering with:', formData);
-      // TODO: Add actual API call here
+      // Remove confirmPassword before sending to API
+      const { confirmPassword, ...userData } = formData;
+      const response = await authAPI.register(userData);
+      console.log('Registration successful:', response);
+      
+      // Redirect to homepage after successful registration
+      navigate('/');
     } catch (error) {
       console.error('Registration failed:', error);
+      setRegisterError(error.message || 'Registration failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -122,22 +131,29 @@ const Register = () => {
           <p>Join us and start your journey</p>
         </div>
 
+        {registerError && (
+          <div className="error-alert">
+            <span className="error-icon">⚠️</span>
+            {registerError}
+          </div>
+        )}
+
         <div className="form-group">
-          <label htmlFor="name">
-            <span className="label-text">Full Name</span>
+          <label htmlFor="username">
+            <span className="label-text">Username</span>
             <span className="label-icon">👤</span>
           </label>
           <input 
             type="text"
-            id="name"
-            name="name"
-            value={formData.name}
+            id="username"
+            name="username"
+            value={formData.username}
             onChange={handleChange}
-            className={errors.name ? 'error' : ''}
-            placeholder="Enter your full name"
+            className={errors.username ? 'error' : ''}
+            placeholder="Enter your username"
             required
           />
-          {errors.name && <span className="error-message">{errors.name}</span>}
+          {errors.username && <span className="error-message">{errors.username}</span>}
         </div>
 
         <div className="form-group">
