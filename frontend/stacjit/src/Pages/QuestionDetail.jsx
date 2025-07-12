@@ -148,7 +148,13 @@ const QuestionDetail = ({ user }) => {
               Asked {formatDate(question.createdAt)}
             </span>
             <span className="question-author">
-              by {question.author?.username || "Anonymous"}
+              by {question.author?.username ? (
+                <Link to={`/profile/${question.author.username}`} className="author-name">
+                  {question.author.username}
+                </Link>
+              ) : (
+                "Anonymous"
+              )}
             </span>
           </div>
         </div>
@@ -209,7 +215,13 @@ const QuestionDetail = ({ user }) => {
                 <div className="answer-text">{getQuestionText(answer)}</div>
                 <div className="answer-meta">
                   <span className="answer-author">
-                    {answer.author?.username || "Anonymous"}
+                    {answer.author?.username ? (
+                      <Link to={`/profile/${answer.author.username}`} className="author-name">
+                        {answer.author.username}
+                      </Link>
+                    ) : (
+                      "Anonymous"
+                    )}
                   </span>
                   <span className="answer-date">
                     {formatDate(answer.createdAt)}

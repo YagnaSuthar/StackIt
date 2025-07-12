@@ -247,10 +247,55 @@ const acceptAnswer = async (req, res) => {
   }
 };
 
+const getAnswersByAuthor = async (req, res) => {
+  const { author } = req.query;
+  if (!author) {
+    return res.status(400).json({ success: false, message: "Author username is required" });
+  }
+  try {
+    const user = await User.findOne({ username: author });
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+    const answers = await Answer.find({ author: user._id }).populate('question');
+    // Optionally, add question title for each answer
+    const answersWithTitles = answers.map(ans => ({
+      ...ans.toObject(),
+      questionTitle: ans.question?.title || "Question",
+    }));
+    res.json({ success: true, answers: answersWithTitles });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+const getAnswersByAuthorUsername = async (req, res) => {
+  const { username } = req.params;
+  if (!username) {
+    return res.status(400).json({ success: false, message: "Username is required" });
+  }
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+    const answers = await Answer.find({ author: user._id }).populate('question');
+    const answersWithTitles = answers.map(ans => ({
+      ...ans.toObject(),
+      questionTitle: ans.question?.title || "Question",
+    }));
+    res.json({ success: true, answers: answersWithTitles });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
 module.exports = {
   createAnswer,
   updateAnswer,
   deleteAnswer,
   voteAnswer,
-  acceptAnswer
+  acceptAnswer,
+  getAnswersByAuthor,
+  getAnswersByAuthorUsername
 };
