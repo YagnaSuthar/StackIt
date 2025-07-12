@@ -57,13 +57,10 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // Static files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Database connection
+// Database connection (removed deprecated options)
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/stackit';
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('MongoDB connected'))
+mongoose.connect(MONGODB_URI)
+.then(() => console.log('MongoDB connected successfully'))
 .catch((err) => console.error('MongoDB connection error:', err));
 
 // Socket.IO setup
@@ -73,6 +70,30 @@ mongoose.connect(MONGODB_URI, {
 app.use((req, res, next) => {
   req.io = io;
   next();
+});
+
+// Debug middleware to log all requests
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({
+    success: true,
+    message: 'StackIt API is running',
+    timestamp: new Date().toISOString(),
+    version: '1.0.0'
+  });
+});
+
+// Test endpoint
+app.get('/test', (req, res) => {
+  res.json({ 
+    success: true, 
+    message: 'Server is working!' 
+  });
 });
 
 // Load routes one by one to identify the problematic one
@@ -97,7 +118,7 @@ try {
 console.log('Loading answer routes...');
 try {
   const answerRoutes = require('./routes/answerRoutes');
-  app.use('/api/answers', answerRoutes);
+  app.use('/api', answerRoutes);
   console.log('Answer routes loaded successfully');
 } catch (error) {
   console.error('Error loading answer routes:', error.message);
@@ -112,12 +133,42 @@ try {
   console.error('Error loading notification routes:', error.message);
 }
 
-// Health check endpoint
-app.get('/api/health', (req, res) => {
+// Routes documentation endpoint
+app.get('/api/routes', (req, res) => {
   res.json({
     success: true,
-    message: 'StackIt API is running',
-    timestamp: new Date().toISOString()
+    routes: {
+      auth: {
+        'POST /api/auth/register': 'Register new user',
+        'POST /api/auth/login': 'Login user',
+        'GET /api/auth/me': 'Get current user (protected)'
+      },
+      questions: {
+        'GET /api/questions': 'Get all questions',
+        'POST /api/questions': 'Create new question (protected)',
+        'GET /api/questions/:id': 'Get single question',
+        'PUT /api/questions/:id': 'Update question (protected)',
+        'DELETE /api/questions/:id': 'Delete question (protected)',
+        'POST /api/questions/:id/vote': 'Vote on question (protected)'
+      },
+      answers: {
+        'POST /api/questions/:questionId/answers': 'Create answer (protected)',
+        'PUT /api/answers/:id': 'Update answer (protected)',
+        'DELETE /api/answers/:id': 'Delete answer (protected)',
+        'POST /api/answers/:id/vote': 'Vote on answer (protected)',
+        'POST /api/answers/:id/accept': 'Accept answer (protected)'
+      },
+      notifications: {
+        'GET /api/notifications': 'Get user notifications (protected)',
+        'PUT /api/notifications/:id/read': 'Mark notification as read (protected)',
+        'PUT /api/notifications/read-all': 'Mark all notifications as read (protected)'
+      },
+      system: {
+        'GET /api/health': 'Health check',
+        'GET /api/routes': 'API documentation',
+        'GET /test': 'Simple test endpoint'
+      }
+    }
   });
 });
 
@@ -126,16 +177,23 @@ app.use(errorHandler);
 
 // 404 handler
 app.use('*', (req, res) => {
+  console.log(`404 - Route not found: ${req.method} ${req.originalUrl}`);
   res.status(404).json({
     success: false,
-    message: 'Route not found'
+    message: 'Route not found',
+    requestedUrl: req.originalUrl,
+    method: req.method,
+    availableRoutes: '/api/routes'
   });
 });
 
 const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
+  console.log(`📚 API documentation: http://localhost:${PORT}/api/routes`);
+  console.log(`🧪 Test endpoint: http://localhost:${PORT}/test`);
 });
 
 // Handle unhandled promise rejections
