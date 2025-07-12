@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import "../CSS/components/QuestionDetail.css";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const QuestionDetail = ({ user }) => {
   const { id } = useParams();
@@ -208,7 +210,7 @@ const QuestionDetail = ({ user }) => {
             </div>
           </div>
           <div className="content-section">
-            <div className="question-text">{getQuestionText(question)}</div>
+            <div className="question-text" dangerouslySetInnerHTML={{ __html: getQuestionText(question) }} />
             <div className="question-tags">
               {question.tags?.map((tag, index) => (
                 <span key={index} className="tag">
@@ -252,9 +254,7 @@ const QuestionDetail = ({ user }) => {
                 </div>
               </div>
               <div className="content-section">
-                <div className="answer-text">
-                  {answer.content || answer.description || answer.text || "No content available"}
-                </div>
+                <div className="answer-text" dangerouslySetInnerHTML={{ __html: answer.content || answer.description || answer.text || "No content available" }} />
                 <div className="answer-meta">
                   <span className="answer-author">
                     {answer.author?.username ? (
@@ -286,12 +286,27 @@ const QuestionDetail = ({ user }) => {
               ) : (
                 <form onSubmit={handleSubmitAnswer} className="answer-form">
                   <h3>Your Answer</h3>
-                  <textarea
+                  <ReactQuill
                     value={newAnswer}
-                    onChange={(e) => setNewAnswer(e.target.value)}
+                    onChange={setNewAnswer}
+                    theme="snow"
+                    modules={{
+                      toolbar: [
+                        ["bold", "italic", "underline", "strike"],
+                        ["blockquote", "code-block"],
+                        [{ header: 1 }, { header: 2 }],
+                        [{ list: "ordered" }, { list: "bullet" }],
+                        [{ script: "sub" }, { script: "super" }],
+                        [{ indent: "-1" }, { indent: "+1" }],
+                        ["link", "image"],
+                        ["clean"],
+                      ],
+                    }}
+                    formats={[
+                      "header", "bold", "italic", "underline", "strike", "blockquote",
+                      "list", "bullet", "indent", "link", "image", "code-block", "script"
+                    ]}
                     placeholder="Write your answer here..."
-                    rows={8}
-                    required
                   />
                   <div className="form-actions">
                     <button type="submit" className="submit-button">
