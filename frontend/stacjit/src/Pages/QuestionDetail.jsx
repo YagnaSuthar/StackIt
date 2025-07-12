@@ -210,7 +210,10 @@ const QuestionDetail = ({ user }) => {
             </div>
           </div>
           <div className="content-section">
-            <div className="question-text" dangerouslySetInnerHTML={{ __html: getQuestionText(question) }} />
+            <div
+              className="question-text quill-content"
+              dangerouslySetInnerHTML={{ __html: getQuestionText(question) }}
+            />
             <div className="question-tags">
               {question.tags?.map((tag, index) => (
                 <span key={index} className="tag">
@@ -254,7 +257,10 @@ const QuestionDetail = ({ user }) => {
                 </div>
               </div>
               <div className="content-section">
-                <div className="answer-text" dangerouslySetInnerHTML={{ __html: answer.content || answer.description || answer.text || "No content available" }} />
+                <div
+                  className="answer-text quill-content"
+                  dangerouslySetInnerHTML={{ __html: answer.content || answer.description || answer.text || "No content available" }}
+                />
                 <div className="answer-meta">
                   <span className="answer-author">
                     {answer.author?.username ? (

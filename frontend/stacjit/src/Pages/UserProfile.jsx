@@ -51,22 +51,6 @@ const UserProfile = () => {
     return date.toLocaleDateString();
   };
 
-  const truncateText = (text, maxLength = 100) => {
-    if (!text) return "";
-    if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength) + "...";
-  };
-
-  const getVoteScore = (item) => {
-    if (item.votes && typeof item.votes === 'object' && item.votes.upvotes && item.votes.downvotes) {
-      return item.votes.upvotes.length - item.votes.downvotes.length;
-    }
-    if (typeof item.votes === 'number') {
-      return item.votes;
-    }
-    return 0;
-  };
-
   // Helper to get upvote count
   const getUpvoteCount = (item) => {
     if (item.votes && typeof item.votes === 'object' && item.votes.upvotes) {
@@ -111,7 +95,7 @@ const UserProfile = () => {
             </div>
             {profileUser.bio && <p className="profile-bio">{profileUser.bio}</p>}
           </div>
-          {user && user._id === profileUser._id && (
+          {profileUser && profileUser._id === profileUser._id && (
             <Link to="/profile/edit" className="edit-profile-button">
               Edit Profile
             </Link>
@@ -167,7 +151,7 @@ const UserProfile = () => {
                         </div>
                         <div className="question-content">
                           <Link to={`/questions/${question._id}`} className="question-title">{question.title}</Link>
-                          <p className="question-excerpt">{truncateText(question.content)}</p>
+                          <div className="question-text quill-content" dangerouslySetInnerHTML={{ __html: question.content || question.description || "" }} />
                           <div className="question-meta">
                             <div className="tags">
                               {question.tags?.slice(0, 3).map((tag, index) => (
@@ -205,7 +189,7 @@ const UserProfile = () => {
                         </div>
                         <div className="answer-content">
                           <Link to={`/questions/${answer.question?._id || answer.question}`} className="answer-question">{answer.questionTitle || "Question"}</Link>
-                          <p className="answer-excerpt">{truncateText(answer.content)}</p>
+                          <div className="answer-text quill-content" dangerouslySetInnerHTML={{ __html: answer.content || answer.description || answer.text || "No content available" }} />
                           <div className="answer-meta">
                             <span className="answer-date">{formatDate(answer.createdAt)}</span>
                           </div>

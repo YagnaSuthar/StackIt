@@ -139,6 +139,15 @@
   white-space: pre-wrap;
 }
 
+.quill-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 16px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
 .question-tags {
   display: flex;
   gap: 8px;

@@ -312,6 +312,88 @@
   color: #dc3545;
 }
 
+/* Quill Content Styling for Profile Page */
+.quill-content {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #24292f;
+  margin-bottom: 16px;
+  word-break: break-word;
+}
+
+.quill-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 18px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(13,110,253,0.08);
+  background: #f8f9fa;
+}
+
+.quill-content pre {
+  background: #23272f;
+  color: #f8f8f2;
+  padding: 14px 18px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 15px;
+  margin: 18px 0;
+}
+
+.quill-content code {
+  background: #e1ecf4;
+  color: #39739d;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 15px;
+}
+
+.quill-content blockquote {
+  border-left: 4px solid #0d6efd;
+  background: #f6f8fa;
+  color: #586069;
+  margin: 18px 0;
+  padding: 12px 18px;
+  border-radius: 6px;
+  font-style: italic;
+}
+
+.quill-content a {
+  color: #0d6efd;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.quill-content a:hover {
+  color: #0a58ca;
+}
+
+.quill-content ul,
+.quill-content ol {
+  margin: 16px 0 16px 24px;
+  padding-left: 20px;
+}
+
+.quill-content li {
+  margin-bottom: 6px;
+}
+
+.quill-content strong {
+  font-weight: 700;
+  color: #0d6efd;
+}
+
+.quill-content em {
+  font-style: italic;
+  color: #39739d;
+}
+
+.quill-content u {
+  text-decoration: underline;
+  color: #218838;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .profile-header {
@@ -335,7 +417,7 @@
   
   .tab-button {
     text-align: left;
-    border-bottom: 1px solid #e1e4e8;
+    border-bottom: 1px solid #0d6efd;
     border-right: 3px solid transparent;
   }
   
@@ -387,4 +469,185 @@
   .question-item, .answer-item {
     padding: 15px;
   }
+} 
+
+:root {
+  --profile-bg: #181a20;
+  --profile-container-bg: #23242b;
+  --profile-border: #282a36;
+  --profile-text: #e6e6e6;
+  --profile-muted: #b0b3b8;
+  --profile-accent: #6c63ff;
+  --profile-accent2: #0d6efd;
+  --profile-code-bg: #23272f;
+  --profile-code-text: #f8f8f2;
+  --profile-blockquote-bg: #23242b;
+  --profile-blockquote-border: #6c63ff;
+  --profile-link: #6c63ff;
+  --profile-link-hover: #a084ff;
+}
+
+body.dark, .user-profile.dark {
+  background: var(--profile-bg);
+  color: var(--profile-text);
+}
+
+.user-profile {
+  background: var(--profile-bg);
+  color: var(--profile-text);
+}
+
+.user-profile .container {
+  background: var(--profile-container-bg);
+  border: 1px solid var(--profile-border);
+  border-radius: 12px;
+  padding: 32px 24px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+}
+
+.profile-header, .profile-stats, .profile-content {
+  background: var(--profile-container-bg);
+  border: 1px solid var(--profile-border);
+  color: var(--profile-text);
+}
+
+.profile-avatar {
+  background: var(--profile-accent2);
+  color: #fff;
+}
+
+.profile-name {
+  color: var(--profile-accent);
+}
+
+.profile-meta, .profile-role, .profile-joined, .profile-bio {
+  color: var(--profile-muted);
+}
+
+.edit-profile-button {
+  background: var(--profile-accent2);
+  color: #fff;
+}
+
+.edit-profile-button:hover {
+  background: var(--profile-link-hover);
+}
+
+/* Quill Content Dark Theme */
+.quill-content {
+  color: var(--profile-text);
+}
+
+.quill-content img {
+  background: #22232a;
+  box-shadow: 0 2px 8px rgba(108,99,255,0.12);
+}
+
+.quill-content pre {
+  background: var(--profile-code-bg);
+  color: var(--profile-code-text);
+}
+
+.quill-content code {
+  background: #282a36;
+  color: #a084ff;
+}
+
+.quill-content blockquote {
+  border-left: 4px solid var(--profile-blockquote-border);
+  background: var(--profile-blockquote-bg);
+  color: var(--profile-muted);
+}
+
+.quill-content a {
+  color: var(--profile-link);
+}
+
+.quill-content a:hover {
+  color: var(--profile-link-hover);
+}
+
+.quill-content strong {
+  color: var(--profile-accent);
+}
+
+.quill-content em {
+  color: var(--profile-link);
+}
+
+.quill-content u {
+  color: #4ad991;
+}
+
+/* Tabs and stats */
+.tab-navigation {
+  background: transparent;
+  border-bottom: 1px solid var(--profile-border);
+}
+
+.tab-button {
+  color: var(--profile-muted);
+  background: none;
+}
+
+.tab-button.active {
+  color: var(--profile-accent);
+  border-bottom: 3px solid var(--profile-accent);
+}
+
+.stat-item {
+  color: var(--profile-text);
+}
+
+.stat-label {
+  color: var(--profile-muted);
+}
+
+/* Error and loading states */
+.loading, .error {
+  color: var(--profile-muted);
+} 
+
+/* Profile Page Question/Answer Card Dark Theme */
+.question-item, .answer-item {
+  background: var(--profile-container-bg);
+  border: 1.5px solid var(--profile-border);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  color: var(--profile-text);
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.question-item:hover, .answer-item:hover {
+  box-shadow: 0 4px 24px rgba(108,99,255,0.10);
+  border-color: var(--profile-accent);
+}
+
+.question-title, .answer-question {
+  color: var(--profile-accent);
+}
+
+.question-title:hover, .answer-question:hover {
+  color: var(--profile-link-hover);
+}
+
+.question-stats, .answer-stats {
+  background: transparent;
+}
+
+.stat {
+  background: #23242b;
+  color: var(--profile-accent2);
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.stat-number {
+  color: var(--profile-accent2);
+}
+
+.stat-label {
+  color: var(--profile-muted);
 } 
