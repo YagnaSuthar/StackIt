@@ -1,0 +1,388 @@
+/* Questions List Styles */
+.questions-list-page {
+  min-height: 100vh;
+  background: #f8f9fa;
+  padding: 40px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Page Header */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  font-size: 32px;
+  font-weight: 600;
+  color: #24292f;
+  margin: 0;
+}
+
+.ask-button {
+  background: #0d6efd;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.ask-button:hover {
+  background: #0a58ca;
+  transform: translateY(-1px);
+}
+
+/* Filters Section */
+.filters-section {
+  display: flex;
+  gap: 20px;
+  background: white;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 200px;
+}
+
+.filter-group label {
+  font-weight: 600;
+  color: #24292f;
+  font-size: 14px;
+}
+
+.filter-group select,
+.filter-group input {
+  padding: 8px 12px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+}
+
+/* Questions Count */
+.questions-count {
+  font-size: 16px;
+  color: #586069;
+  margin-bottom: 20px;
+  padding: 0 4px;
+}
+
+/* Questions Grid */
+.questions-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.question-card {
+  display: flex;
+  gap: 20px;
+  background: white;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.question-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Question Stats */
+.question-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 60px;
+}
+
+.stat {
+  text-align: center;
+  padding: 8px 4px;
+  border-radius: 4px;
+  background: #f6f8fa;
+}
+
+.stat-number {
+  display: block;
+  font-weight: 600;
+  font-size: 16px;
+  color: #24292f;
+}
+
+.stat-label {
+  display: block;
+  font-size: 12px;
+  color: #586069;
+  text-transform: uppercase;
+}
+
+/* Question Content */
+.question-content {
+  flex: 1;
+}
+
+.question-title {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0d6efd;
+  text-decoration: none;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.question-title:hover {
+  color: #0a58ca;
+}
+
+.question-excerpt {
+  color: #586069;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.question-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: #e1ecf4;
+  color: #39739d;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.question-author {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.author-name {
+  font-size: 12px;
+  color: #586069;
+  font-weight: 500;
+}
+
+.question-date {
+  font-size: 11px;
+  color: #6a737d;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  color: #586069;
+}
+
+.empty-state p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.cta-button {
+  display: inline-block;
+  background: #0d6efd;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.cta-button:hover {
+  background: #0a58ca;
+  transform: translateY(-1px);
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.pagination-button {
+  background: white;
+  border: 1px solid #e1e4e8;
+  color: #586069;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pagination-button:hover:not(:disabled) {
+  background: #f6f8fa;
+  color: #0d6efd;
+}
+
+.pagination-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-numbers {
+  display: flex;
+  gap: 5px;
+}
+
+.pagination-number {
+  background: white;
+  border: 1px solid #e1e4e8;
+  color: #586069;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 40px;
+  text-align: center;
+}
+
+.pagination-number:hover {
+  background: #f6f8fa;
+  color: #0d6efd;
+}
+
+.pagination-number.active {
+  background: #0d6efd;
+  color: white;
+  border-color: #0d6efd;
+}
+
+/* Loading and Error States */
+.loading, .error {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 18px;
+}
+
+.loading {
+  color: #586069;
+}
+
+.error {
+  color: #dc3545;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  
+  .page-header h1 {
+    font-size: 28px;
+  }
+  
+  .filters-section {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .filter-group {
+    min-width: auto;
+  }
+  
+  .question-card {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .question-stats {
+    flex-direction: row;
+    justify-content: center;
+    min-width: auto;
+  }
+  
+  .question-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .pagination {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 15px;
+  }
+  
+  .page-header h1 {
+    font-size: 24px;
+  }
+  
+  .question-card {
+    padding: 16px;
+  }
+  
+  .filters-section {
+    padding: 15px;
+  }
+  
+  .pagination-numbers {
+    gap: 3px;
+  }
+  
+  .pagination-number {
+    min-width: 35px;
+    padding: 6px 8px;
+    font-size: 14px;
+  }
+} 
